@@ -1,0 +1,31 @@
+.employee-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem auto;
+  max-width: 600px;
+
+  &__item {
+    border-bottom: 1px solid #ddd;
+    padding: 1rem 0;
+  }
+
+  &__name {
+    font-weight: bold;
+  }
+
+  &__email {
+    color: #555;
+    margin-top: 0.25rem;
+  }
+
+  &__contract {
+    font-style: italic;
+    margin-top: 0.5rem;
+  }
+
+  &__status {
+    text-align: center;
+    margin-top: 2rem;
+    color: #666;
+  }
+}
