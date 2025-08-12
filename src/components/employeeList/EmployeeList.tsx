@@ -30,27 +30,37 @@ const EmployeeList: React.FC = () => {
   if (error) return <div className="employee-list__status">Error: {error}</div>;
 
   return (
-    <ul className="employee-list">
-      {employees.map((emp) => (
-        <li key={emp.id} className="employee-list__item">
-          <div className="employee-list__name">
-            {emp.firstName} {emp.lastName}
-          </div>
-          <div className="employee-list__email">{emp.email}</div>
-          <div className="employee-list__contract">
-            {emp.contractType === "permanent"
-              ? "Permanent"
-              : `Contract (until ${emp.contractEnd?.slice(0, 10)})`}
-          </div>
-          <button
-            className="employee-list__button"
-            onClick={() => navigate(`/employees/${emp.id}`)}
-          >
-            View / Edit
-          </button>
-        </li>
-      ))}
-    </ul>
+    <div>
+      <div className="employee-list__toolbar">
+        <button
+          className="employee-list__add-btn"
+          onClick={() => navigate("/employees/new")}
+        >
+          + Add New Employee
+        </button>
+      </div>
+      <ul className="employee-list">
+        {employees.map((emp) => (
+          <li key={emp.id} className="employee-list__item">
+            <div className="employee-list__name">
+              {emp.firstName} {emp.lastName}
+            </div>
+            <div className="employee-list__email">{emp.email}</div>
+            <div className="employee-list__contract">
+              {emp.contractType === "permanent"
+                ? "Permanent"
+                : `Contract (until ${emp.contractEnd?.slice(0, 10)})`}
+            </div>
+            <button
+              className="employee-list__button"
+              onClick={() => navigate(`/employees/${emp.id}`)}
+            >
+              View / Edit
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
