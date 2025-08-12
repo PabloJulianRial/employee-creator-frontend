@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./EmployeeList.scss";
+import { useNavigate } from "react-router-dom";
 
 interface Employee {
   id: number;
@@ -16,7 +17,7 @@ const EmployeeList: React.FC = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>();
-
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get<Employee[]>("http://localhost:9000/employees")
@@ -41,6 +42,12 @@ const EmployeeList: React.FC = () => {
               ? "Permanent"
               : `Contract (until ${emp.contractEnd?.slice(0, 10)})`}
           </div>
+          <button
+            className="employee-list__button"
+            onClick={() => navigate(`/employees/${emp.id}`)}
+          >
+            View / Edit
+          </button>
         </li>
       ))}
     </ul>
