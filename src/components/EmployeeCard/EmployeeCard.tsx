@@ -53,8 +53,46 @@ const EmployeeCard: React.FC = () => {
   const handleChange = (field: keyof Employee, value: string | number) => {
     setEmployee((prev) => ({ ...prev, [field]: value }));
   };
+  const validate = (emp: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    contractType: string;
+    contractStart: string;
+    contractEnd?: string | null;
+    hoursPerWeek: number;
+  }) => {
+    if (!emp.firstName) return "First name is required.";
+    if (!emp.lastName) return "Last name is required.";
+    if (!emp.email) return "Email is required.";
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emp.email))
+      return "Please enter a valid email.";
+
+    if (!emp.contractStart) return "Contract start date is required.";
+
+    if (emp.contractType === "contract") {
+      if (!emp.contractEnd)
+        return "Contract end date is required for contract type.";
+
+      if (emp.contractEnd <= emp.contractStart)
+        return "End date must be after start date.";
+    }
+
+    if (emp.hoursPerWeek < 1 || emp.hoursPerWeek > 80) {
+      return "Hours per week should be between 1 and 80.";
+    }
+
+    return "";
+  };
 
   const handleSave = async () => {
+    const msg = validate(employee);
+    if (msg) {
+      alert(msg);
+      return;
+    }
+
     const nowIso = new Date().toISOString();
 
     const payload = {
