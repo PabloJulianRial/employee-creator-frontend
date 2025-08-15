@@ -1,6 +1,6 @@
 # Employee Creator Frontend
 
-A simple React + TypeScript application for viewing, adding, and editing employees.  
+A simple React + TypeScript application for viewing, adding, deleting, and editing employees.  
 It connects to a Scala backend with a MySQL database.
 
 ## Features
@@ -48,7 +48,7 @@ sbt run
 
 ## Frontend Setup
 
-1. **\*Clone & run the frontend repo**:
+1. **Clone & run the frontend repo**:
 
 ```bash
 git clone https://github.com/PabloJulianRial/employee-creator-frontend.git
