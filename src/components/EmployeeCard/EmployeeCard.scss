@@ -82,3 +82,19 @@
     color: #fff;
   }
 }
+
+.employee-card__buttons-delete {
+  padding: 0.65rem 1.25rem;
+  border-radius: $radius-md;
+  background: linear-gradient(90deg, #ff5c5c, #ff3366);
+  background-size: 200% auto;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-position 0.3s ease, transform 0.2s ease;
+}
+.employee-card__buttons-delete:hover {
+  background-position: right center;
+  transform: translateY(-1px);
+}

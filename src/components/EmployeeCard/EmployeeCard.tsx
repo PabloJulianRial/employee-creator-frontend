@@ -138,6 +138,14 @@ const EmployeeCard: React.FC = () => {
     }
   };
 
+  const handleDelete = async () => {
+    const ok = window.confirm("Delete this employee? ");
+    if (!ok) return;
+
+    await axios.delete(`http://localhost:9000/employees/${employee.id}`);
+    navigate("/");
+  };
+
   if (loading) return <div className="employee-card__title">Loading…</div>;
   if (error) return <div className="employee-card__title">Error: {error}</div>;
 
@@ -262,6 +270,14 @@ const EmployeeCard: React.FC = () => {
         <button className="employee-card__buttons-save" onClick={handleSave}>
           Save
         </button>
+        {id !== "new" && (
+          <button
+            className="employee-card__buttons-delete"
+            onClick={handleDelete}
+          >
+            Delete
+          </button>
+        )}
         <button
           className="employee-card__buttons-cancel"
           onClick={() => navigate("/")}
