@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./ContractsList.scss";
+import ContractsCard from "../contractsCard/ContractsCard";
 
 interface Contract {
   id: number;
@@ -36,7 +37,15 @@ const ContractsList = ({ employeeId }: Props) => {
     return <div className="contracts-list__status">Error: {error}</div>;
 
   if (activeId !== null) {
-    return <div className="contracts-list__card">----contract card-----</div>;
+    return (
+      <div className="contracts-list__card">
+        <ContractsCard
+          contractId={activeId}
+          employeeId={employeeId}
+          onClose={() => setActiveId(null)}
+        />
+      </div>
+    );
   }
 
   if (!contracts.length) {
