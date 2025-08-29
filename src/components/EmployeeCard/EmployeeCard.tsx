@@ -10,11 +10,6 @@ interface Employee {
   email: string;
   mobileNumber?: string | null;
   address?: string | null;
-  contractType: "permanent" | "contract";
-  contractTime: string;
-  contractStart: string;
-  contractEnd?: string | null;
-  hoursPerWeek: number;
 }
 
 const EmployeeCard: React.FC = () => {
@@ -27,16 +22,11 @@ const EmployeeCard: React.FC = () => {
     email: "",
     mobileNumber: "",
     address: "",
-    contractType: "permanent",
-    contractTime: "full-time",
-    contractStart: new Date().toISOString().slice(0, 10),
-    contractEnd: null,
-    hoursPerWeek: 40,
   });
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const [showContracts, setShowContracts] = useState(false);
   useEffect(() => {
     if (id === "new") {
       setLoading(false);
@@ -57,10 +47,6 @@ const EmployeeCard: React.FC = () => {
     firstName: string;
     lastName: string;
     email: string;
-    contractType: string;
-    contractStart: string;
-    contractEnd?: string | null;
-    hoursPerWeek: number;
   }) => {
     if (!emp.firstName) return "First name is required.";
     if (!emp.lastName) return "Last name is required.";
@@ -68,20 +54,6 @@ const EmployeeCard: React.FC = () => {
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emp.email))
       return "Please enter a valid email.";
-
-    if (!emp.contractStart) return "Contract start date is required.";
-
-    if (emp.contractType === "contract") {
-      if (!emp.contractEnd)
-        return "Contract end date is required for contract type.";
-
-      if (emp.contractEnd <= emp.contractStart)
-        return "End date must be after start date.";
-    }
-
-    if (emp.hoursPerWeek < 1 || emp.hoursPerWeek > 80) {
-      return "Hours per week should be between 1 and 80.";
-    }
 
     return "";
   };
@@ -93,24 +65,12 @@ const EmployeeCard: React.FC = () => {
       return;
     }
 
-    const nowIso = new Date().toISOString();
-
     const payload = {
       firstName: employee.firstName,
       lastName: employee.lastName,
       email: employee.email,
       mobileNumber: employee.mobileNumber || null,
       address: employee.address || null,
-      contractType: employee.contractType,
-      contractTime: employee.contractTime,
-      contractStart: employee.contractStart,
-      contractEnd:
-        employee.contractType === "contract" && employee.contractEnd
-          ? employee.contractEnd
-          : null,
-      hoursPerWeek: employee.hoursPerWeek,
-      createdAt: nowIso,
-      updatedAt: nowIso,
     };
 
     try {
@@ -207,65 +167,6 @@ const EmployeeCard: React.FC = () => {
         />
       </div>
 
-      <div className="employee-card__field">
-        <label className="employee-card__field-label">Contract Type</label>
-        <select
-          className="employee-card__field-select"
-          value={employee.contractType}
-          onChange={(e) => handleChange("contractType", e.target.value)}
-        >
-          <option value="permanent">Permanent</option>
-          <option value="contract">Contract</option>
-        </select>
-      </div>
-
-      <div className="employee-card__field">
-        <label className="employee-card__field-label">Contract Time</label>
-        <select
-          className="employee-card__field-select"
-          value={employee.contractTime}
-          onChange={(e) => handleChange("contractTime", e.target.value)}
-        >
-          <option value="full-time">Full-time</option>
-          <option value="part-time">Part-time</option>
-        </select>
-      </div>
-
-      {employee.contractType === "contract" && (
-        <div className="employee-card__field">
-          <label className="employee-card__field-label">
-            Contract End Date
-          </label>
-          <input
-            className="employee-card__field-input"
-            type="date"
-            value={employee.contractEnd || ""}
-            onChange={(e) => handleChange("contractEnd", e.target.value)}
-          />
-        </div>
-      )}
-      <div className="employee-card__field">
-        <label className="employee-card__field-label">
-          Contract Start Date
-        </label>
-        <input
-          className="employee-card__field-input"
-          type="date"
-          value={employee.contractStart}
-          onChange={(e) => handleChange("contractStart", e.target.value)}
-        />
-      </div>
-
-      <div className="employee-card__field">
-        <label className="employee-card__field-label">Hours per Week</label>
-        <input
-          className="employee-card__field-input"
-          type="number"
-          value={employee.hoursPerWeek}
-          onChange={(e) => handleChange("hoursPerWeek", Number(e.target.value))}
-        />
-      </div>
-
       <div className="employee-card__buttons">
         <button className="employee-card__buttons-save" onClick={handleSave}>
           Save
@@ -284,7 +185,23 @@ const EmployeeCard: React.FC = () => {
         >
           Cancel
         </button>
+
+        {employee.id && (
+          <button
+            className="employee-card__buttons-save"
+            onClick={() => setShowContracts((prev) => !prev)}
+          >
+            {showContracts ? "Hide Contracts" : "View Contracts"}
+          </button>
+        )}
       </div>
+
+      {showContracts && employee.id && (
+        <section className="employee-card__section employee-card__contracts">
+          <h3 className="employee-card__subtitle">Contracts</h3>
+          ---contracts list---
+        </section>
+      )}
     </div>
   );
 };
