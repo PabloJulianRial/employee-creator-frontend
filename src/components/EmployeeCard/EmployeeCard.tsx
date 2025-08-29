@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./EmployeeCard.scss";
+import ContractsList from "../contractsList/ContractsList";
 
 interface Employee {
   id?: number;
@@ -199,7 +200,7 @@ const EmployeeCard: React.FC = () => {
       {showContracts && employee.id && (
         <section className="employee-card__section employee-card__contracts">
           <h3 className="employee-card__subtitle">Contracts</h3>
-          ---contracts list---
+          <ContractsList employeeId={employee.id} />
         </section>
       )}
     </div>

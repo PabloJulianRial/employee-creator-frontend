@@ -1,0 +1,39 @@
+@import "../../styles/variables";
+
+.contracts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  &__row {
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+
+    &:hover {
+      background: #fafafa;
+    }
+  }
+
+  &__start {
+    font-weight: 600;
+  }
+
+  &__status {
+    color: $color-muted;
+    font-style: italic;
+    padding: 0.5rem;
+  }
+
+  &__empty {
+    padding: 0.75rem;
+    border: 1px dashed #ddd;
+    border-radius: $radius-md;
+    background: #fafafa;
+    color: $color-muted;
+  }
+
+  &__card {
+    margin-top: 0.5rem;
+  }
+}

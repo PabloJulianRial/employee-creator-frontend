@@ -1,0 +1,31 @@
+.contracts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.contracts-list__row {
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+.contracts-list__row:hover {
+  background: #fafafa;
+}
+.contracts-list__start {
+  font-weight: 600;
+}
+.contracts-list__status {
+  color: #6c6c6c;
+  font-style: italic;
+  padding: 0.5rem;
+}
+.contracts-list__empty {
+  padding: 0.75rem;
+  border: 1px dashed #ddd;
+  border-radius: 0.75rem;
+  background: #fafafa;
+  color: #6c6c6c;
+}
+.contracts-list__card {
+  margin-top: 0.5rem;
+}/*# sourceMappingURL=ContractsList.css.map */
