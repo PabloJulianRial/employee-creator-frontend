@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./ContractsCard.scss";
-import AddContractForm from "../addContractForm/addContractForm";
+import AddContractForm from "../addContractForm/AddContractForm";
 
 interface Contract {
   id: number;
@@ -19,6 +19,7 @@ interface Props {
   employeeId: number;
   onClose: () => void;
   onCreated: () => void;
+  onDeleted: () => void;
 }
 
 const ContractsCard = ({
@@ -26,6 +27,7 @@ const ContractsCard = ({
   employeeId,
   onClose,
   onCreated,
+  onDeleted,
 }: Props) => {
   const [data, setData] = useState<Contract | null>(null);
   const [loading, setLoading] = useState(true);
@@ -43,6 +45,21 @@ const ContractsCard = ({
       .catch((e) => setErr(e.message))
       .finally(() => setLoading(false));
   }, [employeeId, contractId]);
+
+  const handleDelete = async () => {
+    if (!window.confirm("Are you sure you want to delete this contract?"))
+      return;
+    try {
+      await axios.delete(
+        `http://localhost:9000/employees/${employeeId}/contracts/${contractId}`
+      );
+      onDeleted();
+    } catch (e: any) {
+      alert(
+        e?.response?.data?.message || e.message || "Failed to delete contract"
+      );
+    }
+  };
 
   if (loading) return <div className="contract-card__status">Loading…</div>;
   if (err || !data)
@@ -92,7 +109,7 @@ const ContractsCard = ({
           <div className="contract-card__label">Salary</div>
           <div className="contract-card__value">
             {typeof data.salary === "number"
-              ? `€${data.salary.toLocaleString()}`
+              ? `£${data.salary.toLocaleString()}`
               : "—"}
           </div>
         </div>
@@ -112,6 +129,13 @@ const ContractsCard = ({
           onClick={() => setShowForm(true)}
         >
           + Add Contract
+        </button>
+        <button
+          className="contract-card__delete-btn"
+          type="button"
+          onClick={handleDelete}
+        >
+          Delete this contract
         </button>
       </div>
 

@@ -58,6 +58,18 @@ const ContractsList = ({ employeeId }: Props) => {
               setActiveId(null);
             }
           }}
+          onDeleted={async () => {
+            try {
+              const res = await axios.get<Contract[]>(
+                `http://localhost:9000/employees/${employeeId}/contracts`
+              );
+              setContracts(res.data);
+            } catch (e: any) {
+              setError(e.message);
+            } finally {
+              setActiveId(null);
+            }
+          }}
         />
       </div>
     );
