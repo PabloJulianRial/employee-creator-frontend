@@ -81,25 +81,33 @@ const ContractsList = ({ employeeId }: Props) => {
 
   return (
     <ul className="contracts-list">
-      {contracts.map((c) => (
-        <li
-          key={c.id}
-          className="contracts-list__row"
-          onClick={() => setActiveId(c.id)}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => (e.key === "Enter" ? setActiveId(c.id) : undefined)}
-          aria-label={`Open contract starting ${c.contractStart}`}
-        >
-          <span className="contracts-list__start">
-            {new Date(c.contractStart).toLocaleDateString(undefined, {
-              year: "numeric",
-              month: "short",
-              day: "2-digit",
-            })}
-          </span>
-        </li>
-      ))}
+      {[...contracts]
+        .sort(
+          (a, b) =>
+            new Date(b.contractStart).getTime() -
+            new Date(a.contractStart).getTime()
+        )
+        .map((c) => (
+          <li
+            key={c.id}
+            className="contracts-list__row"
+            onClick={() => setActiveId(c.id)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) =>
+              e.key === "Enter" ? setActiveId(c.id) : undefined
+            }
+            aria-label={`Open contract starting ${c.contractStart}`}
+          >
+            <span className="contracts-list__start">
+              {new Date(c.contractStart).toLocaleDateString(undefined, {
+                year: "numeric",
+                month: "short",
+                day: "2-digit",
+              })}
+            </span>
+          </li>
+        ))}
     </ul>
   );
 };
