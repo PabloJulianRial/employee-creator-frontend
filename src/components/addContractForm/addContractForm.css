@@ -1,0 +1,65 @@
+.contract-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  background: #fdfdfd;
+}
+.contract-form__title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #6534ff;
+  margin-bottom: 0.25rem;
+}
+.contract-form__label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #2d2d2d;
+}
+.contract-form__input {
+  padding: 0.4rem;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+.contract-form__actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.contract-form__save-btn {
+  padding: 0.4rem 0.9rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: linear-gradient(90deg, #6534ff, #ff47b5);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.contract-form__save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.contract-form__cancel-btn {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid #6534ff;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: #6534ff;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.contract-form__cancel-btn:hover {
+  background: #6534ff;
+  color: #fff;
+}
+.contract-form__error {
+  color: #a8001a;
+  font-size: 0.8rem;
+  background: #fff0f1;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.5rem;
+}/*# sourceMappingURL=addContractForm.css.map */

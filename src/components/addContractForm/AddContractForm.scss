@@ -1,0 +1,76 @@
+@import "../../styles/variables";
+
+.contract-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: $radius-sm;
+  background: #fdfdfd;
+
+  &__title {
+    font-weight: 600;
+    font-size: 1rem;
+    color: $color-primary;
+    margin-bottom: 0.25rem;
+  }
+
+  &__label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: $color-text;
+  }
+
+  &__input {
+    padding: 0.4rem;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: $radius-sm;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  &__save-btn {
+    padding: 0.4rem 0.9rem;
+    border: none;
+    border-radius: $radius-sm;
+    background: linear-gradient(90deg, $color-primary, $color-secondary);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  &__cancel-btn {
+    padding: 0.4rem 0.9rem;
+    border: 1px solid $color-primary;
+    border-radius: $radius-sm;
+    background: transparent;
+    color: $color-primary;
+    font-size: 0.9rem;
+    cursor: pointer;
+
+    &:hover {
+      background: $color-primary;
+      color: #fff;
+    }
+  }
+
+  &__error {
+    color: #a8001a;
+    font-size: 0.8rem;
+    background: #fff0f1;
+    padding: 0.3rem 0.5rem;
+    border-radius: $radius-sm;
+  }
+}

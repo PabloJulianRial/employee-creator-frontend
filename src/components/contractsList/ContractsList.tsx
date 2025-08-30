@@ -43,6 +43,21 @@ const ContractsList = ({ employeeId }: Props) => {
           contractId={activeId}
           employeeId={employeeId}
           onClose={() => setActiveId(null)}
+          onCreated={async () => {
+            setLoading(true);
+            setError(null);
+            try {
+              const res = await axios.get<Contract[]>(
+                `http://localhost:9000/employees/${employeeId}/contracts`
+              );
+              setContracts(res.data);
+            } catch (e: any) {
+              setError(e.message);
+            } finally {
+              setLoading(false);
+              setActiveId(null);
+            }
+          }}
         />
       </div>
     );

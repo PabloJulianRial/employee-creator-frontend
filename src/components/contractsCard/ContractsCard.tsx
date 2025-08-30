@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./ContractsCard.scss";
+import AddContractForm from "../addContractForm/addContractForm";
 
 interface Contract {
   id: number;
@@ -17,9 +18,15 @@ interface Props {
   contractId: number;
   employeeId: number;
   onClose: () => void;
+  onCreated: () => void;
 }
 
-const ContractsCard = ({ contractId, employeeId, onClose }: Props) => {
+const ContractsCard = ({
+  contractId,
+  employeeId,
+  onClose,
+  onCreated,
+}: Props) => {
   const [data, setData] = useState<Contract | null>(null);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState<string | null>(null);
@@ -109,7 +116,13 @@ const ContractsCard = ({ contractId, employeeId, onClose }: Props) => {
       </div>
 
       {showForm && (
-        <div className="contract-card__add-contract">--- Add Contract ---</div>
+        <div className="contract-card__add-contract">
+          <AddContractForm
+            employeeId={employeeId}
+            onCreated={onCreated}
+            onCancel={() => setShowForm(false)}
+          />
+        </div>
       )}
     </div>
   );
