@@ -22,7 +22,7 @@ const EmployeeList: React.FC = () => {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get<Employee[]>("${API}/employees")
+      .get<Employee[]>(`${API}/employees`)
       .then((res) => setEmployees(res.data))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));

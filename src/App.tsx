@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import EmployeeList from "./components/EmployeeList/EmployeeList";
-import EmployeeCard from "./components/EmployeeCard/EmployeeCard";
+import EmployeeList from "./components/employeeList/EmployeeList.tsx";
+import EmployeeCard from "./components/employeeCard/EmployeeCard.tsx";
 import "./App.scss";
 function App() {
   return (
