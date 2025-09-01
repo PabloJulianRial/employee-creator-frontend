@@ -7,6 +7,7 @@ interface Props {
   onCreated: () => void;
   onCancel: () => void;
 }
+const API = import.meta.env.VITE_API_BASE_URL;
 
 const AddContractForm = ({ employeeId, onCreated, onCancel }: Props) => {
   const [contractStart, setContractStart] = useState("");
@@ -29,7 +30,7 @@ const AddContractForm = ({ employeeId, onCreated, onCancel }: Props) => {
       setErr(null);
 
       await axios.post(
-        `http://localhost:9000/employees/${employeeId}/contracts`,
+        `${API}/employees/${employeeId}/contracts`,
         {
           contractStart,
           contractEnd: contractEnd || null,

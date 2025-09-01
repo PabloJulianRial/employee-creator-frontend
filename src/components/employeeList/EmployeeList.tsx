@@ -13,6 +13,8 @@ interface Employee {
   contractEnd?: string;
 }
 
+const API = import.meta.env.VITE_API_BASE_URL;
+
 const EmployeeList: React.FC = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [loading, setLoading] = useState(true);
@@ -20,7 +22,7 @@ const EmployeeList: React.FC = () => {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get<Employee[]>("http://localhost:9000/employees")
+      .get<Employee[]>("${API}/employees")
       .then((res) => setEmployees(res.data))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));

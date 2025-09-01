@@ -12,6 +12,7 @@ interface Contract {
 interface Props {
   employeeId: number;
 }
+const API = import.meta.env.VITE_API_BASE_URL;
 
 const ContractsList = ({ employeeId }: Props) => {
   const [contracts, setContracts] = useState<Contract[]>([]);
@@ -23,9 +24,7 @@ const ContractsList = ({ employeeId }: Props) => {
     setLoading(true);
     setError(null);
     axios
-      .get<Contract[]>(
-        `http://localhost:9000/employees/${employeeId}/contracts`
-      )
+      .get<Contract[]>(`${API}/employees/${employeeId}/contracts`)
       .then((res) => setContracts(res.data))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -48,7 +47,7 @@ const ContractsList = ({ employeeId }: Props) => {
             setError(null);
             try {
               const res = await axios.get<Contract[]>(
-                `http://localhost:9000/employees/${employeeId}/contracts`
+                `${API}/employees/${employeeId}/contracts`
               );
               setContracts(res.data);
             } catch (e: any) {
@@ -61,7 +60,7 @@ const ContractsList = ({ employeeId }: Props) => {
           onDeleted={async () => {
             try {
               const res = await axios.get<Contract[]>(
-                `http://localhost:9000/employees/${employeeId}/contracts`
+                `${API}/employees/${employeeId}/contracts`
               );
               setContracts(res.data);
             } catch (e: any) {
