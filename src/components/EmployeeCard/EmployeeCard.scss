@@ -4,7 +4,6 @@
   background: #fff;
   padding: 1.5rem;
   border-radius: $radius-lg;
-
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   max-width: 600px;
   margin: 2rem auto;
@@ -37,6 +36,7 @@
     font-size: 1rem;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
+
   &__field-input:focus,
   &__field-select:focus {
     border-color: $color-primary;
@@ -81,20 +81,56 @@
     background: $color-primary;
     color: #fff;
   }
-}
 
-.employee-card__buttons-delete {
-  padding: 0.65rem 1.25rem;
-  border-radius: $radius-md;
-  background: linear-gradient(90deg, #ff5c5c, #ff3366);
-  background-size: 200% auto;
-  color: #fff;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-position 0.3s ease, transform 0.2s ease;
-}
-.employee-card__buttons-delete:hover {
-  background-position: right center;
-  transform: translateY(-1px);
+  &__buttons-delete {
+    padding: 0.65rem 1.25rem;
+    border-radius: $radius-md;
+    background: linear-gradient(90deg, #ff5c5c, #ff3366);
+    background-size: 200% auto;
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-position 0.3s ease, transform 0.2s ease;
+  }
+  &__buttons-delete:hover {
+    background-position: right center;
+    transform: translateY(-1px);
+  }
+
+  &__section {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+  }
+
+  &__subtitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: $color-primary;
+  }
+
+  &__contracts {
+    margin-top: 1rem;
+  }
+
+  &__contracts-actions {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__contracts-list {
+    margin-top: 1rem;
+  }
+
+  &__placeholder {
+    padding: 1rem;
+    text-align: center;
+    color: $color-muted;
+    font-style: italic;
+    border: 1px dashed $color-muted;
+    border-radius: $radius-md;
+  }
 }

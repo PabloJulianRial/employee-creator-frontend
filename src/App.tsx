@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import EmployeeList from "./components/EmployeeList/EmployeeList";
+import EmployeeList from "./components/employeeList/EmployeeList";
 import EmployeeCard from "./components/EmployeeCard/EmployeeCard";
 import "./App.scss";
 function App() {

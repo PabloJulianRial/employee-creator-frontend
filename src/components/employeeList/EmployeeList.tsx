@@ -31,17 +31,23 @@ const EmployeeList: React.FC = () => {
 
   return (
     <div>
-      <div className="employee-list__toolbar">
+      <div className="employee-list__toolbar" data-testid="employees-toolbar">
         <button
           className="employee-list__add-btn"
+          data-testid="add-employee"
           onClick={() => navigate("/employees/new")}
         >
           + Add New Employee
         </button>
       </div>
-      <ul className="employee-list">
+
+      <ul className="employee-list" data-testid="employees-list">
         {employees.map((emp) => (
-          <li key={emp.id} className="employee-list__item">
+          <li
+            key={emp.id}
+            className="employee-list__item"
+            data-testid="employee-row"
+          >
             <div className="employee-list__name">
               {emp.firstName} {emp.lastName}
             </div>
