@@ -123,13 +123,7 @@ const ContractsCard = ({
         >
           ← Back to list
         </button>
-        <button
-          className="contract-card__add-btn"
-          type="button"
-          onClick={() => setShowForm(true)}
-        >
-          + Add Contract
-        </button>
+
         <button
           className="contract-card__delete-btn"
           type="button"
@@ -138,16 +132,6 @@ const ContractsCard = ({
           Delete this contract
         </button>
       </div>
-
-      {showForm && (
-        <div className="contract-card__add-contract">
-          <AddContractForm
-            employeeId={employeeId}
-            onCreated={onCreated}
-            onCancel={() => setShowForm(false)}
-          />
-        </div>
-      )}
     </div>
   );
 };

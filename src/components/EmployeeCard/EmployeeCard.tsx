@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./EmployeeCard.scss";
 import ContractsList from "../contractsList/ContractsList";
+import AddContractForm from "../addContractForm/AddContractForm";
 
 interface Employee {
   id?: number;
@@ -27,7 +28,11 @@ const EmployeeCard: React.FC = () => {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
   const [showContracts, setShowContracts] = useState(false);
+  const [showAddContract, setShowAddContract] = useState(false);
+  const [contractsVersion, setContractsVersion] = useState(0);
+
   useEffect(() => {
     if (id === "new") {
       setLoading(false);
@@ -44,6 +49,7 @@ const EmployeeCard: React.FC = () => {
   const handleChange = (field: keyof Employee, value: string | number) => {
     setEmployee((prev) => ({ ...prev, [field]: value }));
   };
+
   const validate = (emp: {
     firstName: string;
     lastName: string;
@@ -83,7 +89,9 @@ const EmployeeCard: React.FC = () => {
         await axios.patch(
           `http://localhost:9000/employees/${employee.id}`,
           payload,
-          { headers: { "Content-Type": "application/json" } }
+          {
+            headers: { "Content-Type": "application/json" },
+          }
         );
       }
       navigate("/");
@@ -112,7 +120,7 @@ const EmployeeCard: React.FC = () => {
 
   return (
     <div className="employee-card">
-      <h2 className="employee-card__title">
+      <h2 className="employee-card__title" data-testid="employee-form-title">
         {id === "new"
           ? "Add New Employee"
           : `Edit Employee - ID: ${employee.id}`}
@@ -122,6 +130,7 @@ const EmployeeCard: React.FC = () => {
         <label className="employee-card__field-label">First Name</label>
         <input
           className="employee-card__field-input"
+          data-testid="firstName"
           type="text"
           value={employee.firstName}
           onChange={(e) => handleChange("firstName", e.target.value)}
@@ -132,6 +141,7 @@ const EmployeeCard: React.FC = () => {
         <label className="employee-card__field-label">Last Name</label>
         <input
           className="employee-card__field-input"
+          data-testid="lastName"
           type="text"
           value={employee.lastName}
           onChange={(e) => handleChange("lastName", e.target.value)}
@@ -142,6 +152,7 @@ const EmployeeCard: React.FC = () => {
         <label className="employee-card__field-label">Email</label>
         <input
           className="employee-card__field-input"
+          data-testid="email"
           type="email"
           value={employee.email}
           onChange={(e) => handleChange("email", e.target.value)}
@@ -152,6 +163,7 @@ const EmployeeCard: React.FC = () => {
         <label className="employee-card__field-label">Mobile Number</label>
         <input
           className="employee-card__field-input"
+          data-testid="mobileNumber"
           type="text"
           value={employee.mobileNumber || ""}
           onChange={(e) => handleChange("mobileNumber", e.target.value)}
@@ -162,6 +174,7 @@ const EmployeeCard: React.FC = () => {
         <label className="employee-card__field-label">Address</label>
         <input
           className="employee-card__field-input"
+          data-testid="address"
           type="text"
           value={employee.address || ""}
           onChange={(e) => handleChange("address", e.target.value)}
@@ -169,9 +182,14 @@ const EmployeeCard: React.FC = () => {
       </div>
 
       <div className="employee-card__buttons">
-        <button className="employee-card__buttons-save" onClick={handleSave}>
+        <button
+          className="employee-card__buttons-save"
+          data-testid="save-employee"
+          onClick={handleSave}
+        >
           Save
         </button>
+
         {id !== "new" && (
           <button
             className="employee-card__buttons-delete"
@@ -180,8 +198,10 @@ const EmployeeCard: React.FC = () => {
             Delete
           </button>
         )}
+
         <button
           className="employee-card__buttons-cancel"
+          data-testid="cancel"
           onClick={() => navigate("/")}
         >
           Cancel
@@ -190,17 +210,48 @@ const EmployeeCard: React.FC = () => {
         {employee.id && (
           <button
             className="employee-card__buttons-save"
+            data-testid="toggle-contracts"
             onClick={() => setShowContracts((prev) => !prev)}
           >
             {showContracts ? "Hide Contracts" : "View Contracts"}
           </button>
         )}
+
+        {employee.id && (
+          <button
+            className="employee-card__buttons-save"
+            data-testid="add-contract"
+            onClick={() => {
+              setShowContracts(true);
+              setShowAddContract(true);
+            }}
+          >
+            + Add Contract
+          </button>
+        )}
       </div>
 
       {showContracts && employee.id && (
-        <section className="employee-card__section employee-card__contracts">
+        <section
+          className="employee-card__section employee-card__contracts"
+          data-testid="contracts-section"
+        >
           <h3 className="employee-card__subtitle">Contracts</h3>
-          <ContractsList employeeId={employee.id} />
+
+          <ContractsList key={contractsVersion} employeeId={employee.id} />
+
+          {showAddContract && (
+            <div className="employee-card__add-contract">
+              <AddContractForm
+                employeeId={employee.id}
+                onCreated={() => {
+                  setShowAddContract(false);
+                  setContractsVersion((n) => n + 1);
+                }}
+                onCancel={() => setShowAddContract(false)}
+              />
+            </div>
+          )}
         </section>
       )}
     </div>
