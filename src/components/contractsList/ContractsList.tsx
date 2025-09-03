@@ -76,11 +76,15 @@ const ContractsList = ({ employeeId }: Props) => {
   }
 
   if (!contracts.length) {
-    return <div className="contracts-list__empty">No contracts yet.</div>;
+    return (
+      <div className="contracts-list__empty" data-testid="contracts-empty">
+        No contracts yet.
+      </div>
+    );
   }
 
   return (
-    <ul className="contracts-list">
+    <ul className="contracts-list" data-testid="contracts-list">
       {[...contracts]
         .sort(
           (a, b) =>
@@ -89,6 +93,7 @@ const ContractsList = ({ employeeId }: Props) => {
         )
         .map((c) => (
           <li
+            data-testid="contract-row"
             key={c.id}
             className="contracts-list__row"
             onClick={() => setActiveId(c.id)}

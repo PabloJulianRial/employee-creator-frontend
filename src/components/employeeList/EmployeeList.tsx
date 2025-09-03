@@ -59,6 +59,7 @@ const EmployeeList: React.FC = () => {
             </div>
             <button
               className="employee-list__button"
+              data-testid="view-edit"
               onClick={() => navigate(`/employees/${emp.id}`)}
             >
               View / Edit

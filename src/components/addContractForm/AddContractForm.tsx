@@ -55,12 +55,17 @@ const AddContractForm = ({ employeeId, onCreated, onCancel }: Props) => {
   };
 
   return (
-    <form className="contract-form" onSubmit={handleSubmit}>
+    <form
+      className="contract-form"
+      data-testid="contract-form"
+      onSubmit={handleSubmit}
+    >
       <h5 className="contract-form__title">Add Contract</h5>
       {err && <div className="contract-form__error">{err}</div>}
 
       <label className="contract-form__label">Contract Type</label>
       <select
+        data-testid="contractType"
         value={contractType}
         onChange={(e) => setContractType(e.target.value)}
         className="contract-form__input"
@@ -71,6 +76,7 @@ const AddContractForm = ({ employeeId, onCreated, onCancel }: Props) => {
 
       <label className="contract-form__label">Contract Time</label>
       <select
+        data-testid="contractTime"
         value={contractTime}
         onChange={(e) => setContractTime(e.target.value)}
         className="contract-form__input"
@@ -81,6 +87,7 @@ const AddContractForm = ({ employeeId, onCreated, onCancel }: Props) => {
 
       <label className="contract-form__label">Start Date</label>
       <input
+        data-testid="contractStart"
         type="date"
         value={contractStart}
         onChange={(e) => setContractStart(e.target.value)}
@@ -126,6 +133,7 @@ const AddContractForm = ({ employeeId, onCreated, onCancel }: Props) => {
         <button
           type="submit"
           className="contract-form__save-btn"
+          data-testid="save-contract"
           disabled={loading}
         >
           Save
