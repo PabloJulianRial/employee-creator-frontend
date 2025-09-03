@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./ContractsCard.scss";
-import AddContractForm from "../addContractForm/AddContractForm";
 
 interface Contract {
   id: number;
@@ -26,13 +25,11 @@ const ContractsCard = ({
   contractId,
   employeeId,
   onClose,
-  onCreated,
   onDeleted,
 }: Props) => {
   const [data, setData] = useState<Contract | null>(null);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState<string | null>(null);
-  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     setLoading(true);
