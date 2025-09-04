@@ -18,6 +18,8 @@ const AddContractForm = ({ employeeId, onCreated, onCancel }: Props) => {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
+  const API = import.meta.env.VITE_API_BASE_URL;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!contractStart) {
@@ -29,7 +31,7 @@ const AddContractForm = ({ employeeId, onCreated, onCancel }: Props) => {
       setErr(null);
 
       await axios.post(
-        `http://localhost:9000/employees/${employeeId}/contracts`,
+        `${API}/employees/${employeeId}/contracts`,
         {
           contractStart,
           contractEnd: contractEnd || null,

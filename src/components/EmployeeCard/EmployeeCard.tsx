@@ -33,6 +33,8 @@ const EmployeeCard: React.FC = () => {
   const [showAddContract, setShowAddContract] = useState(false);
   const [contractsVersion, setContractsVersion] = useState(0);
 
+  const API = import.meta.env.VITE_API_BASE_URL;
+
   useEffect(() => {
     if (id === "new") {
       setLoading(false);
@@ -40,7 +42,7 @@ const EmployeeCard: React.FC = () => {
     }
 
     axios
-      .get<Employee>(`http://localhost:9000/employees/${id}`)
+      .get<Employee>(`${API}/employees/${id}`)
       .then((res) => setEmployee(res.data))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -82,17 +84,13 @@ const EmployeeCard: React.FC = () => {
 
     try {
       if (id === "new") {
-        await axios.post("http://localhost:9000/employees", payload, {
+        await axios.post(`${API}/employees`, payload, {
           headers: { "Content-Type": "application/json" },
         });
       } else {
-        await axios.patch(
-          `http://localhost:9000/employees/${employee.id}`,
-          payload,
-          {
-            headers: { "Content-Type": "application/json" },
-          }
-        );
+        await axios.patch(`${API}/employees/${employee.id}`, payload, {
+          headers: { "Content-Type": "application/json" },
+        });
       }
       navigate("/");
     } catch (err: any) {
@@ -111,7 +109,7 @@ const EmployeeCard: React.FC = () => {
     const ok = window.confirm("Delete this employee? ");
     if (!ok) return;
 
-    await axios.delete(`http://localhost:9000/employees/${employee.id}`);
+    await axios.delete(`${API}/employees/${employee.id}`);
     navigate("/");
   };
 

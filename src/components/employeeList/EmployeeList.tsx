@@ -18,9 +18,12 @@ const EmployeeList: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>();
   const navigate = useNavigate();
+
+  const API = import.meta.env.VITE_API_BASE_URL;
+
   useEffect(() => {
     axios
-      .get<Employee[]>("http://localhost:9000/employees")
+      .get<Employee[]>(`${API}/employees`)
       .then((res) => setEmployees(res.data))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));

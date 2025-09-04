@@ -31,13 +31,13 @@ const ContractsCard = ({
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState<string | null>(null);
 
+  const API = import.meta.env.VITE_API_BASE_URL;
+
   useEffect(() => {
     setLoading(true);
     setErr(null);
     axios
-      .get<Contract>(
-        `http://localhost:9000/employees/${employeeId}/contracts/${contractId}`
-      )
+      .get<Contract>(`${API}/employees/${employeeId}/contracts/${contractId}`)
       .then((res) => setData(res.data))
       .catch((e) => setErr(e.message))
       .finally(() => setLoading(false));
@@ -48,7 +48,7 @@ const ContractsCard = ({
       return;
     try {
       await axios.delete(
-        `http://localhost:9000/employees/${employeeId}/contracts/${contractId}`
+        `${API}/employees/${employeeId}/contracts/${contractId}`
       );
       onDeleted();
     } catch (e: any) {

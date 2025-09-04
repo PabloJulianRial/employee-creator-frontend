@@ -19,13 +19,13 @@ const ContractsList = ({ employeeId }: Props) => {
   const [error, setError] = useState<string | null>(null);
   const [activeId, setActiveId] = useState<number | null>(null);
 
+  const API = import.meta.env.VITE_API_BASE_URL;
+
   useEffect(() => {
     setLoading(true);
     setError(null);
     axios
-      .get<Contract[]>(
-        `http://localhost:9000/employees/${employeeId}/contracts`
-      )
+      .get<Contract[]>(`${API}/employees/${employeeId}/contracts`)
       .then((res) => setContracts(res.data))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -48,7 +48,7 @@ const ContractsList = ({ employeeId }: Props) => {
             setError(null);
             try {
               const res = await axios.get<Contract[]>(
-                `http://localhost:9000/employees/${employeeId}/contracts`
+                `${API}/employees/${employeeId}/contracts`
               );
               setContracts(res.data);
             } catch (e: any) {
@@ -61,7 +61,7 @@ const ContractsList = ({ employeeId }: Props) => {
           onDeleted={async () => {
             try {
               const res = await axios.get<Contract[]>(
-                `http://localhost:9000/employees/${employeeId}/contracts`
+                `${API}/employees/${employeeId}/contracts`
               );
               setContracts(res.data);
             } catch (e: any) {
