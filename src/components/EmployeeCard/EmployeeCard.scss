@@ -46,21 +46,38 @@
 
   &__buttons {
     display: flex;
-    gap: 1rem;
+    align-items: center;
     margin-top: 1.5rem;
-    justify-content: flex-end;
+    gap: 0.75rem;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+
+  &__buttons > * {
+    flex: 1 1 0;
+    text-align: center;
+    min-width: 80px;
+  }
+
+  &__buttons [data-testid="toggle-contracts"] {
+    margin-left: auto;
+  }
+
+  &__buttons-save,
+  &__buttons-cancel,
+  &__buttons-delete {
+    padding: 0.65rem 0;
+    border-radius: $radius-md;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-position 0.3s ease, transform 0.2s ease;
   }
 
   &__buttons-save {
-    padding: 0.65rem 1.25rem;
-    border-radius: $radius-md;
     background: linear-gradient(90deg, $color-primary, $color-secondary);
     background-size: 200% auto;
     color: #fff;
     border: none;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-position 0.3s ease, transform 0.2s ease;
   }
   &__buttons-save:hover {
     background-position: right center;
@@ -68,14 +85,9 @@
   }
 
   &__buttons-cancel {
-    padding: 0.65rem 1.25rem;
-    border-radius: $radius-md;
     background: transparent;
     border: 2px solid $color-primary;
     color: $color-primary;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
   }
   &__buttons-cancel:hover {
     background: $color-primary;
@@ -83,15 +95,10 @@
   }
 
   &__buttons-delete {
-    padding: 0.65rem 1.25rem;
-    border-radius: $radius-md;
     background: linear-gradient(90deg, #ff5c5c, #ff3366);
     background-size: 200% auto;
     color: #fff;
     border: none;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-position 0.3s ease, transform 0.2s ease;
   }
   &__buttons-delete:hover {
     background-position: right center;
@@ -123,14 +130,5 @@
 
   &__contracts-list {
     margin-top: 1rem;
-  }
-
-  &__placeholder {
-    padding: 1rem;
-    text-align: center;
-    color: $color-muted;
-    font-style: italic;
-    border: 1px dashed $color-muted;
-    border-radius: $radius-md;
   }
 }
